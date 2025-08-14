@@ -67,3 +67,14 @@ export const iconStyles = {
 	color: 'primary.main',
 	mr: 1.5,
 };
+
+export const containerStyles: SxProps = {
+	px: { xs: 2, sm: 3 },
+	py: { xs: 4, sm: 6 },
+};
+
+export const divCenter: SxProps = {
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+};

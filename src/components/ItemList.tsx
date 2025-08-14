@@ -1,42 +1,50 @@
+/** ======= REACT ======= */
 import { useEffect, useState } from 'react';
-import Grid from '@mui/material/Grid';
+
+/** ======= MUI COMPONENT ======= */
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+
+/** ======= MUI ICONS ======= */
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+
+/** ======= CUSTOM COMPONENTS ======= */
 import ListItem from './ListItem';
-
-import {
-	type TaskData,
-	type ItemListOpts,
-	type AssessmentDataType,
-	type ExampleData,
-} from '../data/Data';
-
-import Settings from '../data/Settings';
 import Loading from './Loading';
 
+/** ======= TYPES & SETTINGS ======= */
+import type {
+	TaskData,
+	ItemListOpts,
+	AssessmentDataType,
+	ExampleData,
+} from '../data/Data';
+import Settings from '../data/Settings';
+
+/** Item List Component  */
 const ItemList = (opts: ItemListOpts) => {
 	const baseUrl =
 		import.meta.env.MODE === 'production'
 			? `/${Settings.courseCode}/${opts.isFile ? '' : '#/'}`
 			: `/${opts.isFile ? '' : '#/'}`;
-
 	const [tasks, setTasks] = useState<TaskData[]>([]);
 	const [length, setLength] = useState<number>(0);
 	const [exampleData, setExampleData] = useState<ExampleData[]>([]);
 	const [loading, setLoading] = useState(true);
-
 	useEffect(() => {
 		(async () => {
+			//! ISN'T THIS REDUNDANT? Loading state defaults to true so setting it to true is redundant
 			setLoading(true);
 			if (opts.itemType === 'task' && opts.taskStr) {
 				const isLab = opts.taskStr.includes('elha7950_l');
+				const taskStr = opts.taskStr.slice(-2);
 				const res = isLab
-					? await Settings.api.getLab(opts.taskStr.slice(-2))
-					: await Settings.api.getAssignment(opts.taskStr.slice(-2));
+					? await Settings.api.getLab(taskStr)
+					: await Settings.api.getAssignment(taskStr);
 				if (res?.success && res.data && !Array.isArray(res.data)) {
 					const data = res.data as AssessmentDataType;
-					let taskList = [...data.tasks];
+					const taskList = [...data.tasks];
 					if (
 						data.functions &&
 						data.functions.length > 0 &&
@@ -59,7 +67,6 @@ const ItemList = (opts: ItemListOpts) => {
 				if (res?.success && Array.isArray(res.data)) {
 					setExampleData(res.data);
 					setLength(res.data.length);
-					console.log(res);
 				}
 			} else {
 				const pageData = await Settings.api.getPageData();
@@ -74,11 +81,8 @@ const ItemList = (opts: ItemListOpts) => {
 			setLoading(false);
 		})();
 	}, [opts]);
-	if (loading) {
-		return (
-			<Loading />
-		);
-	}
+	if (loading) return (<Loading />);
+	// TODO: MOVE TO A COMPONENT
 	if (opts.itemType === 'task' && tasks.length === 0) {
 		return (
 			<Container maxWidth="md" sx={{ mt: 8, textAlign: 'center', flexGrow: '1' }}>
@@ -92,7 +96,6 @@ const ItemList = (opts: ItemListOpts) => {
 			</Container>
 		);
 	}
-
 	return (
 		<Grid container spacing={3} sx={{ mt: 2 }}>
 			{Array.from({ length }, (_, i) => {

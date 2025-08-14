@@ -1,7 +1,12 @@
-import type { Theme } from '@mui/material';
-import { lightTheme, darkTheme } from './Theme';
-import type { SettingOpts } from './Data';
+/** ======= APIs ======= */
 import API from '@mohammadelhsn/portfolio-api-wrapper';
+
+/** ======= THEMES ======= */
+import { lightTheme, darkTheme } from './Theme';
+
+/** ======= TYPES ======= */
+import type { Theme } from '@mui/material';
+import type { SettingOpts } from './Data';
 
 class SettingsClass {
 	exampleEnable: boolean;
@@ -98,6 +103,7 @@ class SettingsClass {
 	}
 }
 
+/** Settings config for this project */
 const Settings = new SettingsClass({
 	courseCode: 'CP164',
 	courseName: 'Data Structures I with Python',

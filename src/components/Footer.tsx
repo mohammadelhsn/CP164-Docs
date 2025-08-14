@@ -1,29 +1,29 @@
-// MUI Components
-
+/** ======= MUI COMPONENTS ======= */
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 
-// Data
-
-import Settings from '../data/Settings';
-
-// Icons 
-
+/** ======= MUI ICONS ======= */
+// ! Are these deprecated????
 import LinkedIn from '@mui/icons-material/LinkedIn';
 import GitHub from '@mui/icons-material/GitHub';
 import Email from '@mui/icons-material/Email';
 
-// Footer component
+/** ======= DATA ======= */
+import Settings from '../data/Settings';
 
+/** FOOTER */
 const Footer = () => {
 	return (
-		<Box component="footer" textAlign="center" py={4} sx={{
+		<Box component="footer" sx={{
+			textAlign: 'center',
+			py: 4,
 			boxShadow: '0 -4px 10px rgba(0, 0, 0, 0.1)',
-			bgcolor: (theme) => theme.palette.background.default,
-			color: (theme) => theme.palette.text.secondary
+			bgcolor: ({ palette }) => palette.background.default,
+			color: ({ palette }) => palette.text.secondary
 		}}>
-			<Box display="flex" justifyContent="center" gap={3}>
+			<Box sx={{ display: 'flex', justifyContent: 'center', gap: 3 }}>
+				{/** // TODO: Maybe make this a component */}
 				<IconButton
 					component="a"
 					href={`mailto:${Settings.email}`}
@@ -55,7 +55,7 @@ const Footer = () => {
 					<LinkedIn />
 				</IconButton>
 			</Box>
-			<Typography variant="body2" mt={3} color="text.secondary">
+			<Typography variant="body2" sx={{ mt: 3, color: ({ palette }) => palette.text.secondary }}>
 				© 2025 {Settings.name}. All rights reserved.
 			</Typography>
 		</Box>

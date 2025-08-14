@@ -1,46 +1,41 @@
-// MUI Components
-
+/** ======= MUI COMPONENTS ======= */
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
-import Paper from '@mui/material/Paper';
-import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
-// Custom Components
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
-import SectionWrapper from '../components/Section';
-import TopicsAccordion from '../components/Topic';
-import TechList from '../components/TechList';
-import CardLinks from '../components/CardLinks';
 
-// Icons 
-
+/** ======= MUI ICONS ======= */
 import ArticleIcon from '@mui/icons-material/Article';
-import TopicIcon from '@mui/icons-material/Topic';
-import SummarizeIcon from '@mui/icons-material/Summarize';
-import ComputerIcon from '@mui/icons-material/Computer';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import BiotechIcon from '@mui/icons-material/Biotech';
-import NoteAltIcon from '@mui/icons-material/NoteAlt';
+import ComputerIcon from '@mui/icons-material/Computer';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
-import GitHubIcon from '@mui/icons-material/GitHub';
 import DataObjectIcon from '@mui/icons-material/DataObject';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import NoteAltIcon from '@mui/icons-material/NoteAlt';
+import SummarizeIcon from '@mui/icons-material/Summarize';
+import TopicIcon from '@mui/icons-material/Topic';
 
+/** ======= Custom Components ======= */
+import CardLinks from '../components/CardLinks';
+import SectionWrapper from '../components/Section';
+import TechList from '../components/TechList';
+import TopicsAccordion from '../components/Topic';
 
-// Data 
-
+/** ======= DATA & STYLES ======= */
 import Settings from '../data/Settings';
-import { textStyle } from '../data/Styles';
+import { containerStyles, iconStyles, textStyle } from '../data/Styles';
 
 const CP264DocsMain = () => {
-	const theme = useTheme();
 	return (
-		<Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 }, py: { xs: 4, sm: 6 } }}>
+		<Container maxWidth="lg" sx={containerStyles}>
 			<Box>
 				<Typography
 					variant="h2"
@@ -48,17 +43,13 @@ const CP264DocsMain = () => {
 				>
 					<DataObjectIcon
 						fontSize="inherit"
-						sx={{
-							color: 'primary.main',
-							mr: 1.5,
-						}}
+						sx={iconStyles}
 					/>
 					{Settings.courseName}
 				</Typography>
-
 				<Typography
 					variant="h5" // smaller than h3 to improve visual hierarchy under h2
-					color="text.secondary"
+					color='textSecondary'
 					sx={{
 						fontStyle: 'italic',
 					}}
@@ -80,7 +71,7 @@ const CP264DocsMain = () => {
 					component="pre"
 					elevation={3}
 					sx={{
-						color: theme.palette.text.primary,
+						color: ({ palette }) => palette.text.primary,
 						p: 2,
 						borderRadius: 1,
 						fontFamily: 'monospace',
@@ -108,6 +99,7 @@ const CP264DocsMain = () => {
 			</SectionWrapper>
 			<SectionWrapper title="Explore the Docs" icon={ArticleIcon}>
 				<Grid container spacing={3}>
+					{/** // TODO: EXTRACT THIS LOGIC */}
 					<CardLinks
 						title="Assignments"
 						desc="All assignments with generated documentation."
@@ -144,10 +136,7 @@ const CP264DocsMain = () => {
 							sx={textStyle}
 						>
 							<NoteAltIcon fontSize="inherit"
-								sx={{
-									color: 'primary.main',
-									mr: 1.5,
-								}} /> Notes
+								sx={iconStyles} /> Notes
 						</Typography>
 						<Divider sx={{ my: 2 }} />
 						<Typography variant="body1" color="text.secondary">
@@ -174,30 +163,20 @@ const CP264DocsMain = () => {
 							sx={textStyle}
 						>
 							<ContactSupportIcon fontSize="inherit"
-								sx={{
-									color: 'primary.main',
-									mr: 1.5,
-								}} /> Contact
+								sx={iconStyles} /> Contact
 						</Typography>
 						<Divider sx={{ my: 2 }} />
-						<Typography variant="body1" color="text.secondary" sx={textStyle} component={'pre'}>
+						<Typography variant="body1" color='textSecondary' sx={textStyle} component={'pre'}>
 							<GitHubIcon fontSize="inherit"
-								sx={{
-									color: 'primary.main',
-									mr: 1.5,
-								}} /> GitHub:{' '}
+								sx={iconStyles} /> GitHub:{' '}
 							<Link
 								href={Settings.github}
 								target="_blank"
 								rel="noopener noreferrer"
 								sx={{
-									color: 'primary.main',
-									'&:visited': {
-										color: 'primary.main',  // same as main color
-									},
-									'&:hover': {
-										textDecoration: 'underline',
-									},
+									color: ({ palette }) => palette.primary.main,
+									'&:visited': { color: ({ palette }) => palette.primary.main },
+									'&:hover': { textDecoration: 'underline' },
 								}}
 							>
 								{Settings.github_handle}
@@ -205,22 +184,15 @@ const CP264DocsMain = () => {
 						</Typography>
 						<Typography variant="body1" color="text.secondary" sx={textStyle} component='pre'>
 							<ContactMailIcon fontSize="inherit"
-								sx={{
-									color: 'primary.main',
-									mr: 1.5,
-								}} /> Email:{' '}
+								sx={iconStyles} /> Email:{' '}
 							<Link
 								href={`mailto:${Settings.email}`}
 								target="_blank"
 								rel="noopener noreferrer"
 								sx={{
-									color: 'primary.main',
-									'&:visited': {
-										color: 'primary.main',  // same as main color
-									},
-									'&:hover': {
-										textDecoration: 'underline',
-									},
+									color: ({ palette }) => palette.primary.main,
+									'&:visited': { color: ({ palette }) => palette.primary.main },
+									'&:hover': { textDecoration: 'underline' },
 								}}
 							>
 								{Settings.email}

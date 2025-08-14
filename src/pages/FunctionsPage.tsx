@@ -1,34 +1,39 @@
+/** ======= REACT ======= */
 import { useNavigate } from 'react-router-dom';
 
-// MUI Components
-
+/** ======= MUI COMPONENTS ======= */
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
-import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Container from '@mui/material/Container';
-import LockIcon from '@mui/icons-material/Lock';
-import FunctionsIcon from '@mui/icons-material/Functions';
-import NumbersIcon from '@mui/icons-material/Numbers';
+import Divider from '@mui/material/Divider';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+
+/** ======= MUI ICONS ======= */
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import BuildIcon from '@mui/icons-material/Build';
+import FunctionsIcon from '@mui/icons-material/Functions';
+import IconButton from '@mui/material/IconButton';
+import LockIcon from '@mui/icons-material/Lock';
+import NumbersIcon from '@mui/icons-material/Numbers';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 
-// Data
-
-import { type FunctionPageProps } from '../data/Data';
+/** ======= CUSTOM COMPONENTS ======= */
 import SectionWrapper from '../components/Section';
-import { textStyle, iconStyles, dividerStyle } from '../data/Styles';
-import { Divider } from '@mui/material';
 
+/** ======= DATA & STYLES ======= */
+import { type FunctionPageProps } from '../data/Data';
+import { textStyle, iconStyles, dividerStyle, containerStyles } from '../data/Styles';
+
+/** Functions Page */
 const FunctionsPage = (opts: FunctionPageProps) => {
 	const { functions = [], constants = [] } = opts;
 	const navigate = useNavigate();
 	return (
-		<Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 }, py: { xs: 4, sm: 6 } }}>
+		<Container maxWidth="lg" sx={containerStyles}>
 			<Box>
+				{/** // TODO: EXTRACT THIS TO A COMPONENT */}
 				<IconButton onClick={() => navigate(-1)} aria-label="Go back" sx={{ mb: 1 }}>
 					<ArrowBackIcon />
 				</IconButton>
@@ -37,21 +42,21 @@ const FunctionsPage = (opts: FunctionPageProps) => {
 				</Typography>
 				<Typography
 					variant="h5"
-					color="text.secondary"
-					sx={{ fontStyle: 'italic' }}
+					sx={{ fontStyle: 'italic', color: ({ palette }) => palette.text.secondary }}
 				>
 					{opts.parent} Functions
 				</Typography>
 				<Divider sx={{ my: 4 }} />
 			</Box>
 			<SectionWrapper title="Constants" icon={LockIcon}>
+				{/** // TODO: EXTRACT TO COMPONENT */}
 				{constants.length == 0 && (
 					<Paper elevation={3} sx={{ textAlign: 'center', flexGrow: '1', padding: '1rem' }}>
 						<SentimentVeryDissatisfiedIcon sx={{ fontSize: 60, color: 'error.main', mb: 2 }} />
 						<Typography variant="h4" gutterBottom sx={{ fontWeight: 600 }}>
 							Oops!
 						</Typography>
-						<Typography variant="h6" gutterBottom color="text.secondary">
+						<Typography variant="h6" gutterBottom color='textSecondary'>
 							Looks like this there are no documented constants
 						</Typography>
 					</Paper>
@@ -61,10 +66,12 @@ const FunctionsPage = (opts: FunctionPageProps) => {
 						{constants.map((c, index) => (
 							<Paper key={index} elevation={3} sx={{ padding: '1rem' }}>
 								<Box
-									display="flex"
-									alignItems="center"
-									justifyContent="space-between"
-									mb={1}
+									sx={{
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'space-between',
+										mb: 1
+									}}
 								>
 									<Typography variant="h6" sx={textStyle}>
 										<NumbersIcon sx={iconStyles} /> {c.name}
@@ -76,11 +83,9 @@ const FunctionsPage = (opts: FunctionPageProps) => {
 										size="small"
 									/>
 								</Box>
-
 								<Divider sx={dividerStyle} />
-
 								{c.description && (
-									<Typography variant="body2" color="text.secondary">
+									<Typography variant="body2" sx={{ color: ({ palette }) => palette.text.secondary }}>
 										{c.description}
 									</Typography>
 								)}
@@ -90,13 +95,14 @@ const FunctionsPage = (opts: FunctionPageProps) => {
 				)}
 			</SectionWrapper>
 			<SectionWrapper title="Functions" icon={FunctionsIcon}>
+				{/** // TODO: EXTRACT TO COMPONENT */}
 				{functions.length == 0 && (
 					<Paper elevation={3} sx={{ textAlign: 'center', flexGrow: '1', padding: '1rem' }}>
 						<SentimentVeryDissatisfiedIcon sx={{ fontSize: 60, color: 'error.main', mb: 2 }} />
 						<Typography variant="h4" gutterBottom sx={{ fontWeight: 600 }}>
 							Oops!
 						</Typography>
-						<Typography variant="h6" gutterBottom color="text.secondary">
+						<Typography variant="h6" gutterBottom sx={{ color: ({ palette }) => palette.text.secondary }}>
 							Looks like this there are no documented constants
 						</Typography>
 					</Paper>
@@ -113,7 +119,7 @@ const FunctionsPage = (opts: FunctionPageProps) => {
 									variant="body2"
 									sx={{
 										fontFamily: 'monospace',
-										backgroundColor: 'background.default',
+										backgroundColor: ({ palette }) => palette.background.default,
 										p: 1,
 										borderRadius: 1,
 										mb: 3,
@@ -122,7 +128,7 @@ const FunctionsPage = (opts: FunctionPageProps) => {
 								>
 									{fn.signature}
 								</Typography>
-								<Typography variant="body1" color="text.secondary">
+								<Typography variant="body1" sx={{ color: ({ palette }) => palette.text.secondary }}>
 									{fn.description}
 								</Typography>
 							</Paper>
@@ -132,7 +138,7 @@ const FunctionsPage = (opts: FunctionPageProps) => {
 			</SectionWrapper>
 			{
 				functions.length === 0 && constants.length === 0 && (
-					<Typography mt={4} textAlign="center" color="text.secondary">
+					<Typography sx={{ mt: 4, textAlign: 'center', color: ({ palette }) => palette.text.secondary }}>
 						No functions or constants to display.
 					</Typography>
 				)

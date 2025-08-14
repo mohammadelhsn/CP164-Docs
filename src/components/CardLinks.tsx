@@ -1,27 +1,18 @@
-// React
-
+/** ======= REACT ROUTER ======= */
 import { Link } from 'react-router-dom';
 
-// MUI Components
-
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+/** ======= MUI COMPONENTS ======= */
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
-// Data
-
+/** ======= TYPES, FUNCTIONS, STYLES & SETTINGS ======= */
 import { type CardTypes } from '../data/Data';
 import { getItemType } from '../data/Functions';
-
-// Settings
-
 import Settings from '../data/Settings';
-
-// Styles 
-
 import {
 	buttonStyles,
 	cardActionStyles,
@@ -30,8 +21,7 @@ import {
 	textStyle
 } from '../data/Styles';
 
-// Card Links component
-
+/** Card Links Component */
 const CardLinks = (opts: CardTypes) => {
 	const itemType = getItemType(opts.itemType);
 	const itemTypeCap = getItemType(opts.itemType, true);
@@ -50,6 +40,7 @@ const CardLinks = (opts: CardTypes) => {
 					height: '100%',
 				}}
 			>
+				{/** // TODO: Maybe make this a component */}
 				<Box sx={{ mb: 2 }}>
 					<Typography
 						variant="h4"

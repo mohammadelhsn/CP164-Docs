@@ -1,6 +1,6 @@
 import ItemList from './ItemList';
-
-const TaskCard = ({ count }: { count: number }) => {
+//! This isn't really doing anything
+const TaskCard = ({ count }: { count: number; }) => {
 	return <ItemList itemType="task" count={count} />;
 };
 

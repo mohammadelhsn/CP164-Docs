@@ -1,45 +1,32 @@
+/** ======= REACT & REACT ROUTER ======= */
 import { useEffect, useState } from 'react';
-
-// React
-
 import { useParams, useNavigate } from 'react-router-dom';
 
-// MUI Components
-
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
+/** ======= MUI COMPONENTS ======= */
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 
-// Custom Components
-
-import ItemList from '../components/ItemList';
-import SectionWrapper from '../components/Section';
-import Loading from '../components/Loading';
-
-// Data
-
-import {
-	type LabsAssignmentsOpts,
-} from '../data/Data';
-
-// Icons
-
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
+/** ======= MUI ICONS ======= */
 import ListIcon from '@mui/icons-material/List';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 
-// Styles
+/** ======= CUSTOM COMPONENTS ======= */
+import ItemList from '../components/ItemList';
+import Loading from '../components/Loading';
+import SectionWrapper from '../components/Section';
 
-import { textStyle } from '../data/Styles';
-
+/** ======= TYPES & STYLES ======= */
+import type { LabsAssignmentsOpts } from '../data/Data';
 import type { AssessmentDataType } from '@mohammadelhsn/portfolio-api-wrapper/dist/interfaces/Interfaces';
+import { containerStyles, iconStyles, textStyle } from '../data/Styles';
 import Settings from '../data/Settings';
 
-// Lab/Assignment page for individual 
-
+/** Page for viewing the specific assignment */
 const LabAssignmentPage = (opts: LabsAssignmentsOpts) => {
 	const { num } = useParams<{ num: string; }>();
 	const navigate = useNavigate(); // Hook for navigation
@@ -66,15 +53,9 @@ const LabAssignmentPage = (opts: LabsAssignmentsOpts) => {
 			}
 		};
 
-		if (num) {
-			fetchData();
-		}
+		if (num) fetchData();
 	}, [num, opts.type]);
-	if (loading) {
-		return (
-			<Loading />
-		);
-	}
+	if (loading) return (<Loading />);
 	if (!dataSource) {
 		return (
 			<Container maxWidth="md" sx={{ mt: 8, textAlign: 'center', flexGrow: '1' }}>
@@ -93,7 +74,7 @@ const LabAssignmentPage = (opts: LabsAssignmentsOpts) => {
 	}
 
 	return (
-		<Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 }, py: { xs: 4, sm: 6 } }}>
+		<Container maxWidth="lg" sx={containerStyles}>
 			<Box sx={{ mb: 2 }}>
 				<IconButton onClick={() => navigate(-1)} aria-label="Go back">
 					<ArrowBackIcon />
@@ -101,10 +82,7 @@ const LabAssignmentPage = (opts: LabsAssignmentsOpts) => {
 			</Box>
 			<Box>
 				<Typography variant="h2" sx={textStyle}>
-					<MenuBookIcon fontSize='inherit' sx={{
-						color: 'primary.main',
-						mr: 1.5,
-					}} /> {dataSource.name}
+					<MenuBookIcon fontSize='inherit' sx={iconStyles} /> {dataSource.name}
 				</Typography>
 				<Typography variant="h5" sx={{ fontStyle: 'italic' }}>
 					Here are the documented {dataSource.name}.

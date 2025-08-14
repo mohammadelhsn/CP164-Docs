@@ -123,3 +123,8 @@ export type LabsAssignmentOpt = 'assignment' | 'lab' | 'example';
 export interface LabsAssignmentsOpts {
 	type: LabsAssignmentOpt;
 }
+
+export interface HeaderProps {
+	mode: 'light' | 'dark';
+	toggleColorMode: () => void;
+}
