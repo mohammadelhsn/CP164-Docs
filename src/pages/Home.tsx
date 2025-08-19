@@ -33,9 +33,9 @@ import TopicsAccordion from '../components/Topic';
 import Settings from '../data/Settings';
 import { containerStyles, iconStyles, textStyle } from '../data/Styles';
 
-const CP264DocsMain = () => {
+const CP164DocsMain = () => {
 	return (
-		<Container maxWidth="lg" sx={containerStyles}>
+		<Container maxWidth="xl" sx={containerStyles}>
 			<Box>
 				<Typography
 					variant="h2"
@@ -206,4 +206,4 @@ const CP264DocsMain = () => {
 	);
 };
 
-export default CP264DocsMain;
+export default CP164DocsMain;

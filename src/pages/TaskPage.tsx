@@ -55,6 +55,9 @@ const TaskDisplay = (opts: LabsAssignmentsOpts) => {
 
 				if (res?.data) {
 					setTaskData(res.data as TaskData);
+				} else {
+					setTaskData(null);
+					return;
 				}
 
 				// Also fetch the full parent section (lab or assignment) to use later
@@ -64,6 +67,9 @@ const TaskDisplay = (opts: LabsAssignmentsOpts) => {
 
 				if (sectionRes?.data) {
 					setParentSection(sectionRes.data as AssessmentDataType);
+				} else {
+					setParentSection(null);
+					return;
 				}
 			} catch (e) {
 				console.error('Failed to fetch task:', e);
@@ -89,14 +95,14 @@ const TaskDisplay = (opts: LabsAssignmentsOpts) => {
 	// TODO: Make this into a component
 	if (!taskData || !parentSection) {
 		return (
-			<Container maxWidth="md" sx={{ mt: 8, textAlign: 'center', flexGrow: 1 }}>
+			<Container maxWidth="xl" sx={{ mt: 8, textAlign: 'center', flexGrow: 1 }}>
 				<SentimentVeryDissatisfiedIcon sx={{ fontSize: 60, color: 'error.main', mb: 2 }} />
 				<Typography variant="h5">❌ Task not found</Typography>
 			</Container>
 		);
 	}
 	return (
-		<Container maxWidth="lg" sx={containerStyles}>
+		<Container maxWidth="xl" sx={containerStyles}>
 			<Box sx={{ mb: 2 }}>
 				<IconButton onClick={() => navigate(-1)} aria-label="Go back">
 					<ArrowBackIcon />
